@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern POS System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .pos-container {
+      display: flex;
+      height: calc(100vh - 60px);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .products-section {
+      flex: 2;
+      padding: 20px;
+      background: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+    }
+
+    .cart-section {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .product-card.selected {
+      border-color: #007bff;
+      background: #f8f9ff;
+    }
+
+    .product-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .product-price {
+      color: #28a745;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .product-stock {
+      color: #6c757d;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .cart-header {
+      border-bottom: 2px solid #dee2e6;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 500;
+    }
+
+    .cart-item-price {
+      color: #6c757d;
+      font-size: 14px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quantity-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #dee2e6;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-btn:hover {
+      background: #f8f9fa;
+    }
+
+    .cart-total {
+      border-top: 2px solid #dee2e6;
+      padding-top: 15px;
+      margin-top: 20px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 15px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .checkout-btn:hover {
+      background: #218838;
+    }
+
+    .checkout-btn:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+
+    .customer-section {
+      margin-bottom: 20px;
+    }
+
+    .customer-select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .search-section {
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .category-filter {
+      margin-bottom: 20px;
+    }
+
+    .category-btn {
+      padding: 8px 16px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #dee2e6;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-btn:hover {
+      background: #f8f9fa;
+    }
+
+    .category-btn.active {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    .nav {
+      background: #343a40;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav a {
+      color: #adb5bd;
+      text-decoration: none;
+      margin-right: 20px;
+    }
+
+    .nav a:hover {
+      color: white;
+    }
+
+    .nav h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .remove-btn {
+      color: #dc3545;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 3px;
+    }
+
+    .remove-btn:hover {
+      background: #f8d7da;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #6c757d;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6c757d;
+    }
+
+    .empty-cart i {
+      font-size: 48px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .pos-container {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .products-section {
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-family: 'Helvetica', sans-serif;">
+    <div style="font-size: 24px; font-weight: 700; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">SLCreation</div>
+    <div style="font-size: 12px; opacity: 0.9; margin-top: 3px;">Point of Sale System</div>
+  </div>
+
+  <nav class="nav">
+    <div style="font-size: 18px; font-weight: 700; font-family: 'Helvetica', sans-serif; color: white;">SLCreation</div>
+    <div>
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/inventory.html">Inventory</a>
+      <a href="/crm.html">CRM</a>
+      <a href="/pos.html" style="background: rgba(102, 126, 234, 0.2); color: white;">POS</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="pos-container">
+    <!-- Products Section -->
+    <div class="products-section">
+      <div class="search-section">
+        <input type="text" class="search-input" placeholder="Search products..." id="productSearch">
+      </div>
+
+      <div class="category-filter" id="categoryFilter">
+        <!-- Categories will be loaded here -->
+      </div>
+
+      <div id="productsGrid" class="product-grid">
+        <div class="loading">Loading products...</div>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart-section">
+      <div class="cart-header">
+        <h3>Current Order</h3>
+        <div class="customer-section">
+          <select class="customer-select" id="customerSelect">
+            <option value="">Walk-in Customer</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <i>🛒</i>
+          <p>Cart is empty</p>
+          <p>Select products to add to cart</p>
+        </div>
+      </div>
+
+      <div class="cart-total">
+        <div class="total-row">
+          <span>Total:</span>
+          <span id="cartTotal">₹0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn" disabled>
+          Complete Sale (Enter)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div id="receiptModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 8px; max-width: 400px; width: 90%;">
+      <h3 style="margin-top: 0; text-align: center;">Sale Completed!</h3>
+      <div id="receiptContent"></div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button onclick="printReceipt()" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; margin-right: 10px; cursor: pointer;">Print Receipt</button>
+        <button onclick="closeReceipt()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="pos.js"></script>
+</body>
+</html>

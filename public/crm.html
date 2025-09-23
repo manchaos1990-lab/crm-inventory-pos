@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRM - SLCreation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    .brand-header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .brand-name {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .brand-tagline {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    .crm-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .crm-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    }
+
+    .crm-title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0;
+    }
+
+    .crm-stats {
+      display: flex;
+      gap: 20px;
+    }
+
+    .stat-card {
+      background: #f7fafc;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2d3748;
+      margin: 0;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #718096;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 30px;
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+      height: fit-content;
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .table-section {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+    }
+
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .table-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0;
+    }
+
+    .search-input {
+      padding: 10px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 14px;
+      width: 300px;
+    }
+
+    .customers-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .customers-table th {
+      background: #f7fafc;
+      padding: 15px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #4a5568;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .customers-table td {
+      padding: 15px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      color: #2d3748;
+    }
+
+    .customers-table tr:hover {
+      background: #f8fafc;
+    }
+
+    .customer-name {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .customer-contact {
+      color: #718096;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .edit-btn {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .edit-btn:hover {
+      background: #bbdefb;
+    }
+
+    .delete-btn {
+      background: #ffebee;
+      color: #d32f2f;
+    }
+
+    .delete-btn:hover {
+      background: #ffcdd2;
+    }
+
+    .nav {
+      background: #2d3748;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(102, 126, 234, 0.2);
+      color: white;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #718096;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #718096;
+    }
+
+    .empty-state i {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 1024px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .crm-stats {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .crm-container {
+        padding: 15px;
+      }
+
+      .table-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="brand-name">SLCreation</div>
+    <div class="brand-tagline">Customer Relationship Management</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="brand-name" style="color: white; font-size: 20px;">SLCreation</div>
+    <div class="nav-links">
+      <a href="/dashboard.html">Dashboard</a>
+      <a href="/crm.html" class="active">CRM</a>
+      <a href="/inventory.html">Inventory</a>
+      <a href="/pos.html">POS</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="crm-container">
+    <!-- Header with Stats -->
+    <div class="crm-header">
+      <h1 class="crm-title">👥 Customer Management</h1>
+      <div class="crm-stats">
+        <div class="stat-card">
+          <div class="stat-number" id="totalCustomers">0</div>
+          <div class="stat-label">Total Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="activeCustomers">0</div>
+          <div class="stat-label">Active This Month</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <!-- Add Customer Form -->
+      <div class="form-section">
+        <h3 class="form-title">➕ Add New Customer</h3>
+        <form id="customerForm">
+          <div class="form-group">
+            <label class="form-label" for="cust_name">Customer Name *</label>
+            <input type="text" id="cust_name" class="form-input" placeholder="Enter full name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust_phone">Phone Number</label>
+            <input type="tel" id="cust_phone" class="form-input" placeholder="Enter phone number">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust_email">Email Address</label>
+            <input type="email" id="cust_email" class="form-input" placeholder="Enter email address">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust_company">Company</label>
+            <input type="text" id="cust_company" class="form-input" placeholder="Enter company name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust_address">Address</label>
+            <input type="text" id="cust_address" class="form-input" placeholder="Enter full address">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cust_notes">Notes</label>
+            <textarea id="cust_notes" class="form-textarea" placeholder="Additional notes about the customer"></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Add Customer</button>
+        </form>
+      </div>
+
+      <!-- Customers Table -->
+      <div class="table-section">
+        <div class="table-header">
+          <h3 class="table-title">📋 Customer List</h3>
+          <input type="text" class="search-input" placeholder="Search customers..." id="customerSearch">
+        </div>
+
+        <div id="customersTableContainer">
+          <div class="loading">Loading customers...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Customer Modal -->
+  <div id="editModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;">
+      <h3 style="margin-top: 0; color: #2d3748;">Edit Customer</h3>
+      <form id="editCustomerForm">
+        <input type="hidden" id="edit_customer_id">
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_name">Customer Name *</label>
+          <input type="text" id="edit_cust_name" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_phone">Phone Number</label>
+          <input type="tel" id="edit_cust_phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_email">Email Address</label>
+          <input type="email" id="edit_cust_email" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_company">Company</label>
+          <input type="text" id="edit_cust_company" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_address">Address</label>
+          <input type="text" id="edit_cust_address" class="form-input">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit_cust_notes">Notes</label>
+          <textarea id="edit_cust_notes" class="form-textarea"></textarea>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="form-submit" style="flex: 1;">Update Customer</button>
+          <button type="button" onclick="closeEditModal()" style="flex: 1; background: #6c757d;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="crm.js"></script>
+</body>
+</html>

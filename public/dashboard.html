@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SubhaLakshmiCreation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    .brand-header {
+      text-align: center;
+      padding: 25px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="30" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .brand-name {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+
+    .brand-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .welcome-section {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .welcome-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+
+    .welcome-subtitle {
+      font-size: 16px;
+      color: #718096;
+      margin-bottom: 20px;
+    }
+
+    .user-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      background: #f7fafc;
+      padding: 15px 25px;
+      border-radius: 50px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border: 1px solid #f1f5f9;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .stat-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #718096;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 5px;
+    }
+
+    .stat-change {
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stat-change.positive {
+      color: #22c55e;
+    }
+
+    .stat-change.negative {
+      color: #ef4444;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+    }
+
+    .data-section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .view-all-btn {
+      padding: 8px 16px;
+      background: #f7fafc;
+      color: #667eea;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .view-all-btn:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .data-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #f1f5f9;
+      transition: all 0.2s;
+    }
+
+    .data-item:hover {
+      background: #f8fafc;
+      padding-left: 10px;
+      margin-left: -10px;
+      margin-right: -10px;
+      border-radius: 8px;
+    }
+
+    .data-item:last-child {
+      border-bottom: none;
+    }
+
+    .data-info {
+      flex: 1;
+    }
+
+    .data-name {
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+
+    .data-meta {
+      font-size: 14px;
+      color: #718096;
+    }
+
+    .data-value {
+      font-weight: 700;
+      color: #667eea;
+      font-size: 18px;
+    }
+
+    .quick-actions {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    .actions-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .action-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 20px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      text-decoration: none;
+      color: #2d3748;
+      transition: all 0.3s ease;
+    }
+
+    .action-card:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .action-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #667eea;
+    }
+
+    .action-card:hover .action-icon {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .action-info h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .action-info p {
+      margin: 4px 0 0 0;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .nav {
+      background: #2d3748;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      background: rgba(102, 126, 234, 0.2);
+      color: white;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #718096;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #718096;
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 15px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="brand-name">SubhaLakshmiCreation</div>
+    <div class="brand-subtitle">Business Management Dashboard</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="brand-name" style="color: white; font-size: 20px;">SubhaLakshmiCreation</div>
+    <div class="nav-links">
+      <a href="/dashboard.html" class="active">Dashboard</a>
+      <a href="/crm.html">CRM</a>
+      <a href="/inventory.html">Inventory</a>
+      <a href="/pos.html">POS</a>
+      <a href="/admin.html" id="adminPanelLink" style="display:none;">Admin Panel</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">Welcome to SubhaLakshmiCreation</h1>
+      <p class="welcome-subtitle">Your comprehensive business management solution</p>
+      <div class="user-info" id="userInfo">
+        <div class="user-avatar">👤</div>
+        <div>
+          <div style="font-weight: 600; color: #2d3748;">Loading user...</div>
+          <div style="font-size: 14px; color: #718096;">Business Dashboard</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-title">Total Customers</div>
+        <div class="stat-value" id="totalCustomers">0</div>
+        <div class="stat-change positive">↗️ +12% this month</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-title">Total Products</div>
+        <div class="stat-value" id="totalProducts">0</div>
+        <div class="stat-change positive">↗️ +8% this month</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-title">Today's Sales</div>
+        <div class="stat-value" id="todaySales">₹0</div>
+        <div class="stat-change positive">↗️ +15% vs yesterday</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-title">Low Stock Items</div>
+        <div class="stat-value" id="lowStockItems">0</div>
+        <div class="stat-change negative">⚠️ Requires attention</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h2 class="actions-title">Quick Actions</h2>
+      <div class="actions-grid">
+        <a href="/crm.html" class="action-card">
+          <div class="action-icon">👥</div>
+          <div class="action-info">
+            <h3>Manage Customers</h3>
+            <p>Add, edit, and view customer information</p>
+          </div>
+        </a>
+
+        <a href="/inventory.html" class="action-card">
+          <div class="action-icon">📦</div>
+          <div class="action-info">
+            <h3>Manage Inventory</h3>
+            <p>Track products, stock levels, and pricing</p>
+          </div>
+        </a>
+
+        <a href="/pos.html" class="action-card">
+          <div class="action-icon">🛒</div>
+          <div class="action-info">
+            <h3>Point of Sale</h3>
+            <p>Process sales and generate receipts</p>
+          </div>
+        </a>
+
+        <a href="/admin.html" class="action-card" id="adminCard" style="display:none;">
+          <div class="action-icon">⚙️</div>
+          <div class="action-info">
+            <h3>Admin Panel</h3>
+            <p>Manage users and system settings</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Activity Grid -->
+    <div class="content-grid">
+      <!-- Recent Customers -->
+      <div class="data-section">
+        <div class="section-header">
+          <h3 class="section-title">👥 Recent Customers</h3>
+          <a href="/crm.html" class="view-all-btn">View All</a>
+        </div>
+        <div class="data-list" id="customersList">
+          <div class="loading">Loading customers...</div>
+        </div>
+      </div>
+
+      <!-- Recent Products -->
+      <div class="data-section">
+        <div class="section-header">
+          <h3 class="section-title">📦 Recent Products</h3>
+          <a href="/inventory.html" class="view-all-btn">View All</a>
+        </div>
+        <div class="data-list" id="inventoryList">
+          <div class="loading">Loading products...</div>
+        </div>
+      </div>
+
+      <!-- Recent Sales -->
+      <div class="data-section">
+        <div class="section-header">
+          <h3 class="section-title">💰 Recent Sales</h3>
+          <a href="#" class="view-all-btn">View All</a>
+        </div>
+        <div class="data-list" id="salesList">
+          <div class="loading">Loading sales...</div>
+        </div>
+      </div>
+
+      <!-- System Status -->
+      <div class="data-section">
+        <div class="section-header">
+          <h3 class="section-title">🔄 System Status</h3>
+        </div>
+        <div class="data-list">
+          <div class="data-item">
+            <div class="data-info">
+              <div class="data-name">Server Status</div>
+              <div class="data-meta">System operational</div>
+            </div>
+            <div class="data-value" style="color: #22c55e;">● Online</div>
+          </div>
+          <div class="data-item">
+            <div class="data-info">
+              <div class="data-name">Database</div>
+              <div class="data-meta">SQLite connection active</div>
+            </div>
+            <div class="data-value" style="color: #22c55e;">● Connected</div>
+          </div>
+          <div class="data-item">
+            <div class="data-info">
+              <div class="data-name">Last Backup</div>
+              <div class="data-meta">Automated daily backup</div>
+            </div>
+            <div class="data-value">Today 2:00 AM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
