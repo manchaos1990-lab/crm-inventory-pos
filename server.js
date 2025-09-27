@@ -11,9 +11,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // --- Database setup ---
-const db = new sqlite3.Database(path.join(__dirname, "db", "app.db"), (err) => {
+// Use /tmp for Render deployment (writable directory)
+const dbPath = process.env.NODE_ENV === 'production'
+  ? path.join('/tmp', 'app.db')
+  : path.join(__dirname, "db", "app.db");
+
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error("DB error:", err.message);
-  else console.log("✅ Connected to SQLite DB.");
+  else console.log("✅ Connected to SQLite DB at:", dbPath);
 });
 
 // Create tables if not exists
