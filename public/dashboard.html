@@ -12,158 +12,30 @@
       font-family: 'Helvetica', sans-serif;
     }
 
-    /* Crime Scene Tape Border */
-    .crime-scene-border {
+    /* Simple Watermark */
+    .simple-watermark {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      background: rgba(128, 128, 128, 0.1);
       pointer-events: none;
       z-index: -1;
-    }
-
-    /* Top border tape */
-    .tape-top {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 30px;
-      background: repeating-linear-gradient(
-        45deg,
-        #FFD700 0px,
-        #FFD700 15px,
-        #000 15px,
-        #000 30px
-      );
-      border-bottom: 2px solid #000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-
-    /* Bottom border tape */
-    .tape-bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 30px;
-      background: repeating-linear-gradient(
-        45deg,
-        #FFD700 0px,
-        #FFD700 15px,
-        #000 15px,
-        #000 30px
-      );
-      border-top: 2px solid #000;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.3);
-    }
-
-    /* Left border tape */
-    .tape-left {
-      position: absolute;
-      top: 30px;
-      bottom: 30px;
-      left: 0;
-      width: 30px;
-      background: repeating-linear-gradient(
-        135deg,
-        #FFD700 0px,
-        #FFD700 15px,
-        #000 15px,
-        #000 30px
-      );
-      border-right: 2px solid #000;
-      box-shadow: 2px 0 4px rgba(0,0,0,0.3);
-    }
-
-    /* Right border tape */
-    .tape-right {
-      position: absolute;
-      top: 30px;
-      bottom: 30px;
-      right: 0;
-      width: 30px;
-      background: repeating-linear-gradient(
-        135deg,
-        #FFD700 0px,
-        #FFD700 15px,
-        #000 15px,
-        #000 30px
-      );
-      border-left: 2px solid #000;
-      box-shadow: -2px 0 4px rgba(0,0,0,0.3);
-    }
-
-    /* Corner warning signs */
-    .warning-sign {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      background: #FFD700;
-      border: 2px solid #000;
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 8px;
+    }
+
+    .watermark-text {
+      font-size: 48px;
       font-weight: 900;
-      color: #000;
+      color: rgba(64, 64, 64, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 8px;
       text-align: center;
-      line-height: 1.1;
-      z-index: -1;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    }
-
-    .warning-sign.top-left {
-      top: -5px;
-      left: -5px;
-    }
-
-    .warning-sign.top-right {
-      top: -5px;
-      right: -5px;
-    }
-
-    .warning-sign.bottom-left {
-      bottom: -5px;
-      left: -5px;
-    }
-
-    .warning-sign.bottom-right {
-      bottom: -5px;
-      right: -5px;
-    }
-
-    /* Tape text */
-    .tape-text-top, .tape-text-bottom {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 12px;
-      font-weight: 900;
-      color: #000;
-      text-shadow: 1px 1px 0px #FFD700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      z-index: 1;
-    }
-
-    .tape-text-left, .tape-text-right {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(90deg);
-      font-size: 12px;
-      font-weight: 900;
-      color: #000;
-      text-shadow: 1px 1px 0px #FFD700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      z-index: 1;
+      line-height: 1.2;
+      transform: rotate(-15deg);
     }
 
     .brand-header {
@@ -575,27 +447,10 @@
   </style>
 </head>
 <body>
-  <!-- Crime Scene Tape Border -->
-  <div class="crime-scene-border">
-    <div class="tape-top">
-      <div class="tape-text-top">EMPLOYEE WEBSITE • DO NOT ENTER • EMPLOYEE WEBSITE • DO NOT ENTER</div>
-    </div>
-    <div class="tape-bottom">
-      <div class="tape-text-bottom">EMPLOYEE WEBSITE • DO NOT ENTER • EMPLOYEE WEBSITE • DO NOT ENTER</div>
-    </div>
-    <div class="tape-left">
-      <div class="tape-text-left">EMPLOYEE WEBSITE • DO NOT ENTER</div>
-    </div>
-    <div class="tape-right">
-      <div class="tape-text-right">EMPLOYEE WEBSITE • DO NOT ENTER</div>
-    </div>
+  <!-- Simple Watermark -->
+  <div class="simple-watermark">
+    <div class="watermark-text">EMPLOYEE<br>WEBSITE</div>
   </div>
-
-  <!-- Corner Warning Signs -->
-  <div class="warning-sign top-left">⚠<br>CAUTION</div>
-  <div class="warning-sign top-right">⚠<br>ALERT</div>
-  <div class="warning-sign bottom-left">⚠<br>WARNING</div>
-  <div class="warning-sign bottom-right">⚠<br>DANGER</div>
 
   <!-- Brand Header -->
   <div class="brand-header">
