@@ -144,6 +144,24 @@ db.serialize(() => {
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     synced_at DATETIME
   )`);
+
+  // Create default admin user if no users exist
+  db.get("SELECT COUNT(*) as count FROM users", (err, row) => {
+    if (!err && row.count === 0) {
+      console.log("📝 Creating default admin user...");
+      db.run(
+        "INSERT INTO users (username, password, name, role, approved) VALUES (?, ?, ?, ?, ?)",
+        ["admin", "admin123", "Administrator", "admin", 1],
+        function(err) {
+          if (err) {
+            console.error("❌ Error creating default admin:", err.message);
+          } else {
+            console.log("✅ Default admin user created: username='admin', password='admin123'");
+          }
+        }
+      );
+    }
+  });
 });
 
 // --- Middleware ---
