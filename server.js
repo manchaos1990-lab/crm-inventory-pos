@@ -167,7 +167,7 @@ db.serialize(() => {
 // --- Middleware ---
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Enhanced CORS for React Native app
 app.use(cors({
