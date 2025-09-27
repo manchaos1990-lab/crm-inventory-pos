@@ -1,39 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login - Subhalakshmi POS</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SubhaLakshmiCreation</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    body {
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Watermark */
+    .watermark-left, .watermark-right {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background: rgba(102, 126, 234, 0.05);
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 12px;
+      color: rgba(102, 126, 234, 0.3);
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .watermark-left {
+      left: 0;
+    }
+
+    .watermark-right {
+      right: 0;
+    }
+
+    .brand-header {
+      text-align: center;
+      padding: 25px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="50" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="30" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .brand-name {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+
+    .brand-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 1px;
+    }
+
+    .login-container {
+      max-width: 450px;
+      margin: 50px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      font-size: 16px;
+      color: #718096;
+      margin-bottom: 30px;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4a5568;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .login-btn {
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-links {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-links a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .login-links a:hover {
+      color: #764ba2;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .message.error {
+      background: #fed7d7;
+      color: #c53030;
+    }
+
+    .message.success {
+      background: #c6f6d5;
+      color: #22543d;
+    }
+
+    /* Skeleton Loading */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    .skeleton-text {
+      height: 16px;
+      margin-bottom: 8px;
+    }
+
+    .skeleton-input {
+      height: 48px;
+      margin-bottom: 20px;
+    }
+
+    .skeleton-button {
+      height: 48px;
+      margin-top: 10px;
+    }
+
+    @keyframes loading {
+      0% {
+        background-position: 200% 0;
+      }
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .login-container {
+        margin: 20px;
+        padding: 30px 20px;
+      }
+
+      .brand-name {
+        font-size: 28px;
+      }
+
+      .login-title {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        margin: 10px;
+        padding: 20px 15px;
+      }
+
+      .brand-header {
+        padding: 20px 15px;
+      }
+
+      .brand-name {
+        font-size: 24px;
+        letter-spacing: 2px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Watermark -->
+  <div class="watermark-left">Employee Website</div>
+  <div class="watermark-right">Employee Website</div>
 
-<div class="login-container">
-  <h1>Subhalakshmi POS Login</h1>
-  <form id="loginForm">
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-  <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-  <div id="message"></div>
-</div>
+  <!-- Brand Header -->
+  <div class="brand-header">
+    <div class="brand-name">SubhaLakshmiCreation</div>
+    <div class="brand-subtitle">Business Management System</div>
+  </div>
+
+  <div class="login-container">
+    <!-- Skeleton Loading State -->
+    <div id="skeletonLoader" style="display: none;">
+      <div class="skeleton skeleton-text" style="width: 60%; margin: 0 auto 8px;"></div>
+      <div class="skeleton skeleton-text" style="width: 40%; margin: 0 auto 30px;"></div>
+      <div class="skeleton skeleton-input"></div>
+      <div class="skeleton skeleton-input"></div>
+      <div class="skeleton skeleton-button"></div>
+    </div>
+
+    <!-- Actual Login Form -->
+    <div id="loginContent">
+      <h1 class="login-title">Welcome Back</h1>
+      <p class="login-subtitle">Sign in to your account</p>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label class="form-label" for="username">Username</label>
+          <input type="text" id="username" class="form-input" placeholder="Enter your username" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="login-btn">Sign In</button>
+      </form>
+
+      <div class="login-links">
+        <a href="signup.html">Create new account</a>
+      </div>
+
+      <div id="message" class="message" style="display: none;"></div>
+    </div>
+  </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Show skeleton loader initially
+  const skeletonLoader = document.getElementById('skeletonLoader');
+  const loginContent = document.getElementById('loginContent');
+
+  skeletonLoader.style.display = 'block';
+  loginContent.style.display = 'none';
+
+  // Simulate loading time (you can adjust this)
+  setTimeout(() => {
+    skeletonLoader.style.display = 'none';
+    loginContent.style.display = 'block';
+  }, 1500); // 1.5 seconds loading
+});
+
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  const messageDiv = document.getElementById("message");
+  messageDiv.style.display = 'none';
+  messageDiv.className = 'message';
+
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  const res = await fetch("/login", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({ username, password })
-  });
 
-  if(res.redirected){
-    window.location.href = res.url; // go to whichever page
-  } else {
-    const text = await res.text();
-    document.getElementById("message").innerText = text;
+  try {
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ username, password })
+    });
+
+    if(res.redirected){
+      window.location.href = res.url; // go to whichever page
+    } else {
+      const text = await res.text();
+      messageDiv.innerText = text;
+      messageDiv.classList.add('error');
+      messageDiv.style.display = 'block';
+    }
+  } catch (error) {
+    messageDiv.innerText = "Network error. Please try again.";
+    messageDiv.classList.add('error');
+    messageDiv.style.display = 'block';
   }
 });
 </script>

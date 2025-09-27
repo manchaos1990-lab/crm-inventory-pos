@@ -2,7 +2,7 @@
 export const APP_CONFIG = {
   name: 'CRM POS Inventory',
   version: '1.0.0',
-  apiUrl: 'https://api.yourapp.com', // Replace with your API URL
+  apiUrl: 'https://crm-inventory-pos.onrender.com', // API URL
 };
 
 // Colors

@@ -320,6 +320,34 @@
       opacity: 0.5;
     }
 
+    /* Watermark */
+    .watermark-left, .watermark-right {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background: rgba(102, 126, 234, 0.05);
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 12px;
+      color: rgba(102, 126, 234, 0.3);
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .watermark-left {
+      left: 0;
+    }
+
+    .watermark-right {
+      right: 0;
+    }
+
     @media (max-width: 768px) {
       .admin-container {
         padding: 15px;
@@ -340,6 +368,9 @@
   </style>
 </head>
 <body>
+  <!-- Watermark -->
+  <div class="watermark-left">Employee Website</div>
+  <div class="watermark-right">Employee Website</div>
   <!-- Brand Header -->
   <div class="brand-header">
     <div class="brand-name">SubhaLakshmiCreation</div>
