@@ -21,30 +21,171 @@
       overflow-x: hidden;
     }
 
-    /* Simple Watermark */
-    .simple-watermark {
+    /* Mummy Wrapping Watermark */
+    .mummy-wrapping {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(128, 128, 128, 0.1);
       pointer-events: none;
       z-index: -1;
+      overflow: hidden;
+    }
+
+    /* Vertical edge text */
+    .vertical-text-left, .vertical-text-right {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-family: 'Helvetica', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: rgba(64, 64, 64, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      z-index: 1;
     }
 
-    .watermark-text {
-      font-size: 48px;
-      font-weight: 900;
-      color: rgba(64, 64, 64, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 8px;
-      text-align: center;
-      line-height: 1.2;
+    .vertical-text-left {
+      left: 0;
+    }
+
+    .vertical-text-right {
+      right: 0;
+    }
+
+    /* Scattered tape strips */
+    .tape-strip {
+      position: absolute;
+      height: 25px;
+      background: repeating-linear-gradient(
+        45deg,
+        #FFD700 0px,
+        #FFD700 12px,
+        #000 12px,
+        #000 25px
+      );
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
       transform: rotate(-15deg);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+      opacity: 0.6;
+    }
+
+    .tape-strip:nth-child(1) {
+      top: 15%;
+      left: 8%;
+      right: 8%;
+      animation: tape-drift-1 12s ease-in-out infinite;
+    }
+
+    .tape-strip:nth-child(2) {
+      top: 35%;
+      left: 12%;
+      right: 12%;
+      animation: tape-drift-2 15s ease-in-out infinite reverse;
+      animation-delay: -3s;
+    }
+
+    .tape-strip:nth-child(3) {
+      top: 55%;
+      left: 6%;
+      right: 6%;
+      animation: tape-drift-1 18s ease-in-out infinite;
+      animation-delay: -6s;
+    }
+
+    .tape-strip:nth-child(4) {
+      top: 75%;
+      left: 10%;
+      right: 10%;
+      animation: tape-drift-2 14s ease-in-out infinite reverse;
+      animation-delay: -9s;
+    }
+
+    .tape-strip:nth-child(5) {
+      top: 25%;
+      left: 15%;
+      right: 15%;
+      animation: tape-drift-1 16s ease-in-out infinite;
+      animation-delay: -12s;
+    }
+
+    .tape-strip:nth-child(6) {
+      top: 65%;
+      left: 4%;
+      right: 4%;
+      animation: tape-drift-2 13s ease-in-out infinite reverse;
+      animation-delay: -15s;
+    }
+
+    .tape-strip:nth-child(7) {
+      top: 45%;
+      left: 18%;
+      right: 18%;
+      animation: tape-drift-1 17s ease-in-out infinite;
+      animation-delay: -18s;
+    }
+
+    .tape-strip:nth-child(8) {
+      top: 85%;
+      left: 7%;
+      right: 7%;
+      animation: tape-drift-2 19s ease-in-out infinite reverse;
+      animation-delay: -21s;
+    }
+
+    /* Tape text */
+    .tape-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      font-size: 10px;
+      font-weight: 900;
+      color: #000;
+      text-shadow: 0.5px 0.5px 0px #FFD700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    @keyframes tape-drift-1 {
+      0%, 100% {
+        transform: translateX(0) rotate(-15deg);
+      }
+      25% {
+        transform: translateX(10px) rotate(-12deg);
+      }
+      50% {
+        transform: translateX(-5px) rotate(-18deg);
+      }
+      75% {
+        transform: translateX(8px) rotate(-13deg);
+      }
+    }
+
+    @keyframes tape-drift-2 {
+      0%, 100% {
+        transform: translateX(0) rotate(-15deg);
+      }
+      25% {
+        transform: translateX(-8px) rotate(-17deg);
+      }
+      50% {
+        transform: translateX(12px) rotate(-11deg);
+      }
+      75% {
+        transform: translateX(-3px) rotate(-19deg);
+      }
     }
 
     .brand-header {
@@ -262,9 +403,37 @@
   </style>
 </head>
 <body>
-  <!-- Simple Watermark -->
-  <div class="simple-watermark">
-    <div class="watermark-text">EMPLOYEE<br>WEBSITE</div>
+  <!-- Mummy Wrapping Watermark -->
+  <div class="mummy-wrapping">
+    <!-- Vertical edge text -->
+    <div class="vertical-text-left">EMPLOYEE WEBSITE</div>
+    <div class="vertical-text-right">EMPLOYEE WEBSITE</div>
+
+    <!-- Scattered tape strips -->
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
+    <div class="tape-strip">
+      <div class="tape-text">EMPLOYEE WEBSITE • DO NOT ENTER</div>
+    </div>
   </div>
 
   <!-- Brand Header -->
