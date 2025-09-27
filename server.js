@@ -151,12 +151,12 @@ db.serialize(() => {
       console.log("📝 Creating default admin user...");
       db.run(
         "INSERT INTO users (username, password, name, role, approved) VALUES (?, ?, ?, ?, ?)",
-        ["admin", "admin123", "Administrator", "admin", 1],
+        ["admin", "6964", "Administrator", "admin", 1],
         function(err) {
           if (err) {
             console.error("❌ Error creating default admin:", err.message);
           } else {
-            console.log("✅ Default admin user created: username='admin', password='admin123'");
+            console.log("✅ Default admin user created: username='admin', password='6964'");
           }
         }
       );
