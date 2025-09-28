@@ -15,7 +15,7 @@ A complete business management solution with web interface and mobile app suppor
 ## 🛠️ Tech Stack
 
 - **Backend**: Node.js, Express.js
-- **Database**: SQLite (local), PostgreSQL (cloud)
+- **Database**: SQLite (better-sqlite3)
 - **Frontend**: HTML, CSS, JavaScript
 - **Mobile**: React Native (separate project)
 - **Deployment**: Render, Railway, or any Node.js hosting

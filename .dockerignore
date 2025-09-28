@@ -1,0 +1,9 @@
+node_modules
+.git
+mobile
+*.log
+.DS_Store
+.env
+database.sqlite
+app.db
+crm_inventory_pos.db
